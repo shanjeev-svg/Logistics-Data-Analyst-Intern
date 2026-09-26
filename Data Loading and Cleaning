@@ -1,0 +1,10 @@
+import pandas as pd
+ 
+# Load raw delivery data
+df = pd.read_csv('delivery_data.csv')
+ 
+# Basic cleaning
+df = df.dropna(subset=['pickup_lat', 'pickup_lon', 'drop_lat', 'drop_lon'])
+df['order_time'] = pd.to_datetime(df['order_time'])
+df['delivery_time_min'] = pd.to_numeric(df['delivery_time_min'], errors='coerce')
+df = df.drop_duplicates(subset=['order_id'])
